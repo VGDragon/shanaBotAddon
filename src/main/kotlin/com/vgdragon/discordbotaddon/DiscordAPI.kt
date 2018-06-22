@@ -1,4 +1,4 @@
-package com.vgdragon.discordBotPlugin
+package com.vgdragon.discordbotaddon
 
 import com.vgdragon.discordbot.discord.json.api.send.MessageSend
 
