@@ -13,14 +13,14 @@ import com.vgdragon.discordbot.discord.json.websocket.payloadJson.MessageReceive
 
 interface DiscordAPI{
 
-    fun sendMessage(text: String, channelId: String)
-    fun sendMessage(messageSend: MessageSend, channelId: String)
+    fun sendMessage(text: String, channelId: String) :MessageReceive?
+    fun sendMessage(messageSend: MessageSend, channelId: String) :MessageReceive?
 
-    fun sendMessage(messageSend: MessageSend)
-    fun sendMessage(text: String)
+    fun sendMessage(messageSend: MessageSend) :MessageReceive?
+    fun sendMessage(text: String) :MessageReceive?
 
-    fun sendDMMessage(messageSend: MessageSend)
-    fun sendDMMessage(text: String)
+    fun sendDMMessage(messageSend: MessageSend) :MessageReceive?
+    fun sendDMMessage(text: String) :MessageReceive?
 
 
     fun deleteChannel()
