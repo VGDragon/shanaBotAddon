@@ -19,7 +19,7 @@ interface DiscordAPI{
      * @param text the Text that will be send (maximal 2000 characters).
      * @param channelId the ID of the channel that should send to.
      */
-    fun sendMessage(text: String, channelId: String)
+    fun sendMessage(text: String, channelId: String):MessageReceive?
     /**
      * For sending messages to a given Discord Channel. In the MessageSend you have diffed settings.
      * You can add a picture, link, Fields (with Title) and more.
@@ -27,32 +27,32 @@ interface DiscordAPI{
      * @param messageSend the MessageSend class with more setting for the message.
      * @param channelId the ID of the channel that should send to.
      */
-    fun sendMessage(messageSend: MessageSend, channelId: String)
+    fun sendMessage(messageSend: MessageSend, channelId: String):MessageReceive?
     /**
      * For sending messages to the same channel you got one. In the MessageSend you have diffed settings.
      * You can add a picture, link, Fields (with Title) and more.
      *
      * @param messageSend the MessageSend class with more setting for the message.
      */
-    fun sendMessage(messageSend: MessageSend)
+    fun sendMessage(messageSend: MessageSend):MessageReceive?
     /**
      * For sending messages to the same channel you got one. It is for simple text sending.
      *
      * @param text the Text that will be send (maximal 2000 characters).
      */
-    fun sendMessage(text: String)
+    fun sendMessage(text: String):MessageReceive?
     /**
      * For sending Direct Message messages to the User you got one. It is for simple text sending to only the user.
      *
      * @param messageSend the MessageSend class with more setting for the message.
      */
-    fun sendDMMessage(messageSend: MessageSend)
+    fun sendDMMessage(messageSend: MessageSend):MessageReceive?
     /**
      * For sending Direct Message messages to the User you got one. It is for simple text sending to only the user.
      *
      * @param text the Text that will be send (maximal 2000 characters).
      */
-    fun sendDMMessage(text: String)
+    fun sendDMMessage(text: String):MessageReceive?
 
     /**
      * To delete the channel the command is used into.
