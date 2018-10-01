@@ -6,8 +6,21 @@ import com.vgdragon.discordbot.discord.json.Permission
 import com.vgdragon.discordbot.discord.json.Role
 import java.awt.Color
 
-class CreateGuildRole(var name:String = "new role", var permission: Permission? = null, var color: Color = Color(0, 0, 0), var hoist: Boolean = false, var mentionable: Boolean = false){
+class CreateGuildRole(
+        var name:String = "new role",
+        var permission: Permission? = null,
+        var color: Color = Color(0, 0, 0),
+        /**
+         * whether the role should be displayed separately in the sidebar
+         */
+        var hoist: Boolean = false,
+        var mentionable: Boolean = false){
 
+    /**
+     * To copy the Data of an Role Class in this Class.
+     *
+     *
+     */
     fun put(role: Role){
         name = role.name
         permission = Permission()

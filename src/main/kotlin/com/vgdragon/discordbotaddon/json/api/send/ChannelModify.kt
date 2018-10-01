@@ -15,8 +15,19 @@ class ChannelModify {
     var user_limit: Int = -1
     var permission_overwrites: List<PermissionOverwrite> = mutableListOf()
     var parent_id: String = ""
+    /**
+     * type
+     * 0     GUILD_TEXT
+     * 1     DM
+     * 2     GUILD_VOICE
+     * 3     GROUP_DM
+     * 4     GUILD_CATEGORY
+     */
     var type: Int = -1
-
+    /**
+     * To copy the Data of an Channel Class in this Class.
+     * With that, you only need to change what you want.
+     */
     fun put(channel: Channel) {
         if (channel.name != null)
             name = channel.name
@@ -38,6 +49,9 @@ class ChannelModify {
             type = channel.type
     }
 
+    /**
+     * the API need it
+     */
     fun getJson(): JsonObject {
         val list: MutableList<Pair<String, Any>> = mutableListOf()
         if (name.isNotBlank())

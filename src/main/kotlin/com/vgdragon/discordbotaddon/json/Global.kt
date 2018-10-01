@@ -20,19 +20,48 @@ class Attachments (
     val height: Long = 0,
     val width: Long = 0
 )
-class Embed (var title: String = "",
-             var type: String = "",
-             var description: String = "",
-             var url: String = "",
-             var timestamp: Date? = null,
-             var color: Long = 16711680,
-             var footer: Footer = Footer(),
-             var image: Image = Image(),
-             var thumbnail: Thumbnail = Thumbnail(),
-             var video: Video = Video(),
-             var provider: Provider = Provider(),
-             var author: Author = Author(),
-             var fields: List<Field> = mutableListOf()){
+
+/*
+ * Examples:
+ * https://anidiotsguide_old.gitbooks.io/discord-js-bot-guide/content/examples/using-embeds-in-messages.html
+ */
+class Embed (
+        /**
+         * The Title of the Emdeb.
+         * The url will be placed on the Title.
+         */
+        var title: String = "",
+        /**
+         * type of embed (always "rich" for webhook embeds)
+         */
+        var type: String = "",
+        var description: String = "",
+        /**
+         * url of embed (in the Title)
+         */
+        var url: String = "",
+        /**
+         * 	ISO8601 timestamp
+         */
+        var timestamp: Date? = null,
+        /**
+         * 	the color strip on the right
+         * 	See: https://www.tydac.ch/color/
+         */
+        var color: Long = 16711680,
+        var footer: Footer = Footer(),
+        var image: Image = Image(),
+        var thumbnail: Thumbnail = Thumbnail(),
+        var video: Video = Video(),
+        var provider: Provider = Provider(),
+        var author: Author = Author(),
+        var fields: List<Field> = mutableListOf()){
+
+    /**
+     * To copy the Data of an Embed Class in this Class.
+     *
+     * No idea why I did this o.O
+     */
     fun put(embed: Embed){
         title = embed.title
         type = embed.type
@@ -88,6 +117,9 @@ class Footer(
 )
 class Reaction (
     val count: Long = 0,
+    /**
+     * whether the current user reacted using this emoji
+     */
     val me: Boolean = false,
     val emoji: Emoji = Emoji()
 )
@@ -104,12 +136,18 @@ class Role (
     val id: String = "",
     val name: String = "",
     val color: Int = 0,
+    /**
+     * whether the role should be displayed separately in the sidebar
+     */
     val hoist: Boolean = false,
     val position: Int = 0,
     val permissions: Long = 0,
     val managed: Boolean = false,
     val mentionable: Boolean = false
 ){
+    /**
+     * to get a readable version of the Rights
+     */
     fun simblePermissionView(): Permission{
         val permission = Permission()
         permission.putPermissions(permissions)
@@ -118,22 +156,37 @@ class Role (
 }
 class User(val id: String = "",
            val username: String = "",
+           /**
+            * Example: VG Dragon#8672
+            * discriminator = 8672
+            */
            val discriminator: String = "",
+           /**
+            * the user's avatar hash
+            * See: https://discordapp.com/developers/docs/reference#image-formatting
+            */
            val avatar: String = "",
            val bot: Boolean = false,
+           /**
+            * whether the user has two factor enabled on their account
+            */
            val mfa_enabled: Boolean = false,
+           /**
+            * 	whether the email on this account has been verified
+            */
            val verified: Boolean = false,
            val email: String = "")
 class Channel(
-        /*
-        * type
-        * 0     GUILD_TEXT
-        * 1     DM
-        * 2     GUILD_VOICE
-        * 3     GROUP_DM
-        * 4     GUILD_CATEGORY
-         */
+
     val id : String,
+    /**
+    * type
+    * 0     GUILD_TEXT
+    * 1     DM
+    * 2     GUILD_VOICE
+    * 3     GROUP_DM
+    * 4     GUILD_CATEGORY
+     */
     val type : Int,
     val guild_id : String,
     val position : Int,
@@ -144,15 +197,27 @@ class Channel(
     val last_message_id: String,
     val bitrate : Int,
     val user_limit : Int,
+    /**
+     * the recipients of the DM
+     */
     val recipients : List<User>,
     val icon : String,
+    /**
+     * 	id of the DM creator
+     */
     val owner_id : String,
+    /**
+     * application id of the group DM creator if it is bot-created
+     */
     val application_id : String,
     val parent_id : String,
     val last_pin_timestamp : Date
 )
 class PermissionOverwrite(
     val id : String = "",
+    /**
+     * either "role" or "member"
+     */
     val type : String = "",
     val allow : Long = 0,
     val deny : Long = 0
@@ -166,32 +231,90 @@ class PermissionOverwrite(
 }
 class Guild (
     val id: String ,
+    /**
+     * 	guild name (2-100 characters)
+     */
     val name: String ,
+    /**
+     * icon hash
+     */
     val icon: String ,
+    /**
+     * splash hash
+     */
     val splash: String ,
+    /**
+     * whether or not the user(Bot) is the owner of the guild
+     */
     val owner: Boolean ,
     val owner_id: String ,
+    /**
+     * 	total permissions for the user in the guild (does not include channel overrides)
+     */
     val permissions: Int ,
+    /**
+     * voice region id for the guild
+     */
     val region: String ,
     val afk_channel_id: String ,
     val afk_timeout: Long ,
     val embed_enabled: Boolean ,
     val embed_channel_id: String ,
+    /**
+     * 0	NONE	        unrestricted
+     * 1	LOW	            must have verified email on account
+     * 2	MEDIUM	        must be registered on Discord for longer than 5 minutes
+     * 3	HIGH	        (╯°□°）╯︵ ┻━┻ - must be a member of the server for longer than 10 minutes
+     * 4	VERY_HIGH	    ┻━┻ミヽ(ಠ益ಠ)ﾉ彡┻━┻ - must have a verified phone number
+     */
     val verification_level: Int ,
+    /**
+     * 0    ALL_MESSAGES
+     * 1    ONLY_MENTIONS
+     */
     val default_message_notifications: Int ,
+    /**
+     * 0    DISABLED
+     * 1    MEMBERS_WITHOUT_ROLES
+     * 2    ALL_MEMBERS
+     */
     val explicit_content_filter: Int ,
     val roles: List<Role> ,
     val emojis: List<Emoji> ,
+    /**
+     * enabled guild features
+     */
     val features: List<String> ,
+    /**
+     * two factor
+     * 0    NONE
+     * 1    ELEVATED
+     */
     val mfa_level: Int,
+    /**
+     * application id of the guild creator if it is bot-created
+     */
     val application_id: String,
     val widget_enabled: Boolean,
     val widget_channel_id: String,
+    /**
+     * the id of the channel to which system messages are sent
+     */
     val system_channel_id: String,
+
+    /*
+    *   These fields are only sent within the GUILD_CREATE event
+     */
+    /**
+     * ISO8601 timestamp
+     */
     val joined_at: Date,
     val large: Boolean,
     val unavailable: Boolean,
     val member_count: Int,
+    /**
+     * (without the guild_id key)
+     */
     val voice_states: List<VoiceState>,
     val members: List<Member>,
     val channels: List<Channel>,
@@ -201,6 +324,10 @@ class VoiceState {
     val guild_id: String = ""
     val channel_id: String = ""
     val user_id: String = ""
+    /**
+     * the guild member this voice state is for
+     */
+    val member: Member = Member()
     val session_id: String = ""
     val deaf: Boolean = false
     val mute: Boolean = false
@@ -223,6 +350,8 @@ class PresenceUpdate (
     val guild_id: String,
     val status: String
 )
+
+
 class Permission{
     var createInstantInvite: Boolean = false
     var kickMembers: Boolean = false
@@ -283,6 +412,11 @@ class Permission{
         manageWebhooks = true
         manageEmojis = true
     }
+    /**
+     * The Permissions in Discord are Numbers.
+     * The number need to be converted into Binary to read the Permissions.
+     * This function convert the Rights into a number(Permission).
+     */
     fun getPermissions(): Long{
         val list: MutableList<Int> = mutableListOf()
 
@@ -321,6 +455,11 @@ class Permission{
         return convertBinaryToDecimal(list)
 
     }
+    /**
+     * The Permissions in Discord are Numbers.
+     * The number need to be converted into Binary to read the Permissions.
+     * This function convert the number(Permission) into readable Rights.
+     */
     fun putPermissions(permissions: Long){
         val convertDecimalToBinary = convertDecimalToBinary(permissions)
         for((int, bool) in convertDecimalToBinary.withIndex()){
@@ -399,7 +538,13 @@ class ConnectionObject(
         val integrations: List<IntegrationObject>
 
 )
-class EditPosition(var id: String ,var position: Int)
+class EditPosition(
+        /**
+         * for Channel position: Channel ID
+         * for Role position: Role ID
+         */
+        var id: String ,
+        var position: Int)
 class Activity(
         val name	            : String,
         val type	            : Int,
